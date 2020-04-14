@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打地鼠-超級瑪利歐版</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            width: 1366px;
+            height: 768px;
+            border: 1px solid black;
+            background-color: skyblue;
+            margin: auto;
+            position: relative;
+        }
+
+        #bricks {
+            background-image: url(./images/磚塊.png);
+            width: 1366px;
+            height: 100px;
+            background-size: contain;
+            position: absolute;
+            transform: translate(0, 670%);
+        }
+
+        #mushroom {
+            background-image: url(./images/蘑菇.gif);
+            background-repeat: no-repeat;
+            width: 50px;
+            height: 50px;
+            animation: mumushroom 10s alternate infinite;
+        }
+
+        @keyframes mumushroom {
+            0% {
+                transform: translate(0, 1240%);
+            }
+
+            100% {
+                transform: translate(650%, 1240%);
+            }
+        }
+
+        #mushroom1 {
+            background-image: url(./images/蘑菇.gif);
+            background-repeat: no-repeat;
+            width: 50px;
+            height: 50px;
+            animation: mumushroom1 15s alternate infinite;
+        }
+
+        @keyframes mumushroom1 {
+            0% {
+                transform: translate(90%, 1140%);
+            }
+
+            100% {
+                transform: translate(500%, 1140%);
+            }
+        }
+
+        #mushroom2 {
+            background-image: url(./images/蘑菇.gif);
+            background-repeat: no-repeat;
+            width: 50px;
+            height: 71px;
+            position: absolute;
+            right: 0%;
+            bottom: 10%;
+            animation: mushroom2 5s alternate infinite;
+        }
+
+
+        @keyframes mushroom2 {
+            0% {
+                transform: translate(-600%, 0%);
+            }
+
+            100% {
+                transform: translate(0%, 0%);
+            }
+        }
+
+
+        #game {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 45%);
+        }
+
+        .hole {
+            width: 150px;
+            height: 150px;
+
+            /* 滑鼠樣式、準心 */
+            cursor: url(./images/滑鼠.png) 50 50, auto;
+        }
+
+        .hole:active {
+            width: 150px;
+            height: 150px;
+
+            /* 滑鼠樣式、準心 */
+            cursor: url(./images/點擊.png) 50 50, auto;
+        }
+
+
+        #list {
+            width: 150px;
+            height: 100px;
+            position: absolute;
+            top: 27%;
+            right: 7%;
+        }
+
+        #btn-start {
+            background-image: url(./images/start.png);
+            background-repeat: no-repeat;
+            border-radius: 3rem;
+            width: 150px;
+            height: 41px;
+            border: 0px;
+        }
+
+        #time-menu {
+            position: absolute;
+            top: 27%;
+            left: 8%;
+        }
+
+        #text-time {
+            margin-left: 80%;
+            font-family: 'Lobster', cursive;
+            color: white;
+            font-size: 20px;
+        }
+
+        #text-time2 {
+            width: 155px;
+            height: 41px;
+            background-image: url(./images/剩餘時間.png);
+            background-repeat: no-repeat;
+        }
+
+        #pipe {
+            position: relative;
+            top: 65px;
+
+        }
+
+        #menu {
+            width: 300px;
+            height: 100px;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        .Mario {
+            background-image: url(./images/馬力歐.png);
+            background-repeat: no-repeat;
+            background-position: center 40px;
+            animation: Mario1 1s linear forwards;
+        }
+
+        @keyframes Mario1 {
+
+            /* 不能用 transform，會造成格子和背景一起移動 */
+            from {
+                background-position: center 120px;
+            }
+
+            50% {
+                background-position: center 10px;
+            }
+
+            to {
+                background-position: center 120px;
+            }
+        }
+
+        .angry {
+            background-image: url(./images/angry.png);
+            background-repeat: no-repeat;
+            background-position: center 40px;
+            animation: angry1 1s linear forwards;
+        }
+
+        @keyframes angry1 {
+
+            from {
+                background-position: center 10px;
+            }
+
+            50% {
+                background-position: center 120px;
+            }
+
+            to {
+                background-position: center 10px;
+            }
+        }
+
+        .flower {
+            background-image: url(./images/flower.png);
+            background-repeat: no-repeat;
+            background-position: center 40px;
+            animation: flower1 1s linear forwards;
+        }
+
+        @keyframes flower1 {
+
+            from {
+                background-position: center 120px;
+            }
+
+            50% {
+                background-position: center 10px;
+            }
+
+            to {
+                background-position: center 120px;
+            }
+        }
+
+        .flower2 {
+            background-image: url(./images/flower2.png);
+            background-repeat: no-repeat;
+            background-position: center 40px;
+            animation: flower2 1s linear forwards;
+        }
+
+        @keyframes flower2 {
+
+            from {
+                background-position: center 10px;
+            }
+
+            50% {
+                background-position: center 120px;
+            }
+
+            to {
+                background-position: center 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <table id="menu" border="1px">
+        <tr>
+            <td style="text-align: center;"><img src="./images/flower.png" width="50px" height="50px"></td>
+            <td style="text-align: center;"><img src="./images/馬力歐.png" width="40px" height="50px"></td>
+        </tr>
+        <tr>
+            <td style="height: 20px; text-align: center;">+1</td>
+            <td style="height: 20px; text-align: center;">-1</td>
+        </tr>
+    </table>
+
+    <table id="time-menu" cellspacing="10px">
+        <tr>
+            <td>
+                <input type="button" id="btn-start">
+            </td>
+        </tr>
+        <tr>
+            <td id="text-time2">
+                <span id="text-time">60</span>
+            </td>
+        </tr>
+    </table>
+
+    <table id="game">
+        <tr>
+            <td class="hole" id="hole7"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole8"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole9"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole9"><img src="./images/水管.png" id="pipe"></td>
+        </tr>
+        <tr>
+            <td class="hole" id="hole4"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole5"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole6"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole9"><img src="./images/水管.png" id="pipe"></td>
+        </tr>
+        <tr>
+            <td class="hole" id="hole1"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole2"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole3"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole9"><img src="./images/水管.png" id="pipe"></td>
+        </tr>
+    </table>
+
+    <div id="list">
+        目前分數：<span id="text-score">0</span><br>
+        最高分：0<br>
+        玩家：<span id="text-highplayer">沒有人</span> <br>
+        分數：<span id="text-highscore">0</span>
+    </div>
+
+    <!-- 磚塊 -->
+    <div id="bricks"></div>
+    <!-- 蘑菇 -->
+    <div id="mushroom"></div>
+    <div id="mushroom1"></div>
+    <div id="mushroom2"></div>
+    <script>
+        const holes = document.getElementsByClassName("hole");
+        const btnStart = document.getElementById("btn-start");
+        const textScore = document.getElementById("text-score");
+        const textTime = document.getElementById("text-time");
+        const textHighPlayer = document.getElementById("text-highplayer");
+        const textHighScore = document.getElementById("text-highscore");
+        const rihai = new Audio();
+        rihai.src = "./過關音效.mp3";
+
+        // 分數
+        let score = 0;
+        // 是否在遊戲中
+        let inGame = false;
+        // 剩餘秒數
+        let timeleft = 10;
+        // 計時器
+        let timer = 0;
+        // 最高分
+        // f12 => application => local storage
+        // 抓瀏覽器的 { name: '', score: 0 }
+        let highscore = { name: '', score: 0 };
+        // 將localStorage 存的文字轉成可以使用的陣列
+        let storage = JSON.parse(localStorage.getItem("highscore"));
+        // 如果有分數紀錄
+        if (storage != null) {
+            // 將最高分紀錄存入變數並修改網頁文字
+            highscore.name = storage.name;
+            textHighPlayer.innerText = highscore.name;
+            highscore.score = storage.score;
+            textHighScore.innerText = highscore.score;
+        }
+
+        // 遊戲開始
+        btnStart.onclick = () => {
+            // 停用開始按鈕
+            btnStart.disabled = true
+            // 設定每秒變換一次
+            timer = setInterval(game, 1000)
+            game()
+            // 重製分數
+            score = 0;
+            textScore.innerText = score;
+            // 設定狀態為遊戲中
+            inGame = true;
+
+            // 重設時間
+            timeleft = 60;
+            textTime.innerText = timeleft;
+        }
+
+        const game = () => {
+            // 清掉格子的 class
+            for (let hole of holes) {
+                hole.classList.remove("flower");
+                hole.classList.remove("flower2");
+                hole.classList.remove("Mario");
+                hole.classList.remove("angry");
+            }
+
+            // 隨機抽四格
+            for (let i = 0; i < 4; i++) {
+                const rand = Math.floor(Math.random() * 9);
+                if (i < 3) {
+                    // classList 指 class 這元素
+                    holes[rand].classList.add("flower");
+                }
+                else {
+                    holes[rand].classList.add("Mario");
+                }
+            }
+
+            // 時間減一
+            timeleft--;
+            textTime.innerText = timeleft;
+
+            // 如果時間到了
+            if (timeleft == 0) {
+                // 設定狀態為不在遊戲中
+                inGame = false;
+                // 停止計時器
+                clearInterval(timer);
+                // 清掉格子的 class
+                for (let hole of holes) {
+                    hole.classList.remove("flower");
+                    hole.classList.remove("flower2");
+                    hole.classList.remove("Mario");
+                    hole.classList.remove("angry");
+                }
+                // 啟用開始按鈕
+                btnStart.disabled = false;
+                alert(`你得到 ${score} 分`);
+
+                // 如果沒有分數紀錄，或是大於目前分數
+                if (storage == null || score > highscore.score) {
+                    rihai.play();
+                    // 請輸入名字
+                    const input = prompt("恭喜最高分，請輸入名字")
+                    // 如果有輸入
+                    if (input != null && input.trim() != '') {
+                        // 將輸入的名字與分數存入變數
+                        highscore.score = score;
+                        highscore.name = input;
+                        // 修改最高分文字
+                        textHighPlayer.innerText = highscore.name;
+                        textHighScore.innerText = highscore.score;
+                        // 將最高分變數轉文字後存入  localStorage
+                        localStorage.setItem("highscore", JSON.stringify(highscore))
+                    }
+                }
+            }
+        }
+
+        for (let hole of holes) {
+            hole.onclick = () => {
+                // 如果在遊戲中且包含 red
+                if (inGame && hole.classList.contains("flower")) {
+                    // 標記為按下去
+                    // 新增藍色
+                    hole.classList.add("flower2");
+                    // 移除紅色，雖然表面上沒差，但其實是用藍色蓋住紅色，而紅色本身還在
+                    hole.classList.remove("flower");
+                    // 加一分
+                    score++;
+                    textScore.innerText = score;
+                }
+                else if (inGame && hole.classList.contains("Mario")) {
+                    hole.classList.add("angry");
+                    hole.classList.remove("Mario");
+                    if (score == 0) {
+                        score == score
+                    }
+                    else {
+                        score--
+                    }
+                    textScore.innerText = score;
+                }
+            }
+        }
+
+
+        document.onkeydown = (event) => {
+            const key = event.key;
+            // 如果按鍵式數字，且在遊戲中，數字為1~9
+            if (!isNaN(key) && inGame && key > 0 && key < 10) {
+                // 找到對應的格子
+                const target = document.getElementById(`hole${key}`);
+                // 觸發點擊事件
+                target.click()
+            }
+        }
+    </script>
+</body>
+
+</html>
