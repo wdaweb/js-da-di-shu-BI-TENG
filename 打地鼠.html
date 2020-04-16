@@ -247,6 +247,28 @@
                 background-position: center 10px;
             }
         }
+
+        .star {
+            background-image: url(./images/star.png);
+            background-repeat: no-repeat;
+            background-position: center 40px;
+            animation: star 1s linear forwards;
+        }
+
+        @keyframes star {
+
+            from {
+                background-position: center 120px;
+            }
+
+            50% {
+                background-position: center 10px;
+            }
+
+            to {
+                background-position: center 120px;
+            }
+        }
     </style>
 </head>
 
@@ -309,6 +331,7 @@
     <div id="mushroom"></div>
     <div id="mushroom1"></div>
     <div id="mushroom2"></div>
+
     <script>
         const holes = document.getElementsByClassName("hole");
         const btnStart = document.getElementById("btn-start");
@@ -367,9 +390,10 @@
                 hole.classList.remove("flower2");
                 hole.classList.remove("Mario");
                 hole.classList.remove("angry");
+                hole.classList.remove("star");
             }
 
-            // 隨機抽四格
+            // 不重複的隨機抽
             let ary = []
             for (let i = 0; i < 3; i++) {
                 const rand = Math.floor(Math.random() * 12);
@@ -378,7 +402,7 @@
                     continue;
                 }
                 ary.push(rand);
-                console.log(ary);
+                // console.log(ary);
                 // classList 指 class 這元素
                 holes[rand].classList.add("flower");
             }
@@ -390,11 +414,19 @@
                     continue;
                 }
                 ary.push(rand);
-                console.log(ary);
+                // console.log(ary);
                 holes[rand].classList.add("Mario");
             }
 
-
+            for (let i = 0; i < 1; i++) {
+                const rand = Math.floor(Math.random() * 12);
+                if (ary.includes(rand)) {
+                    i--;
+                    continue;
+                }
+                ary.push(rand);
+                holes[rand].classList.add("star")
+            }
 
             // 時間減一
             timeleft--;
@@ -412,6 +444,7 @@
                     hole.classList.remove("flower2");
                     hole.classList.remove("Mario");
                     hole.classList.remove("angry");
+                    hole.classList.remove("star");
                 }
                 // 啟用開始按鈕
                 btnStart.disabled = false;
@@ -442,14 +475,15 @@
                 // 如果在遊戲中且包含 red
                 if (inGame && hole.classList.contains("flower")) {
                     // 標記為按下去
-                    // 新增藍色
+                    // 新增flower2
                     hole.classList.add("flower2");
-                    // 移除紅色，雖然表面上沒差，但其實是用藍色蓋住紅色，而紅色本身還在
+                    // 移除flower，雖然表面上沒差，但其實是用藍色蓋住紅色，而紅色本身還在
                     hole.classList.remove("flower");
                     // 加一分
                     score++;
                     textScore.innerText = score;
                 }
+                // 減分
                 else if (inGame && hole.classList.contains("Mario")) {
                     hole.classList.add("angry");
                     hole.classList.remove("Mario");
@@ -460,6 +494,12 @@
                         score--
                     }
                     textScore.innerText = score;
+                }
+                // 加時間
+                else if (inGame && hole.classList.contains("star")) {
+                    hole.classList.add("star")
+                    timeleft += 5
+                    textTime.innerText = timeleft;
                 }
             }
         }
