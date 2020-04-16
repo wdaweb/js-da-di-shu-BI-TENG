@@ -270,7 +270,7 @@
         </tr>
         <tr>
             <td id="text-time2">
-                <span id="text-time">60</span>
+                <span id="text-time">10</span>
             </td>
         </tr>
     </table>
@@ -356,7 +356,7 @@
             inGame = true;
 
             // 重設時間
-            timeleft = 60;
+            timeleft = 10;
             textTime.innerText = timeleft;
         }
 
@@ -370,16 +370,31 @@
             }
 
             // 隨機抽四格
-            for (let i = 0; i < 4; i++) {
-                const rand = Math.floor(Math.random() * 9);
-                if (i < 3) {
-                    // classList 指 class 這元素
-                    holes[rand].classList.add("flower");
+            let ary = []
+            for (let i = 0; i < 3; i++) {
+                const rand = Math.floor(Math.random() * 12);
+                if (ary.includes(rand)) {
+                    i--;
+                    continue;
                 }
-                else {
-                    holes[rand].classList.add("Mario");
-                }
+                ary.push(rand);
+                console.log(ary);
+                // classList 指 class 這元素
+                holes[rand].classList.add("flower");
             }
+
+            for (let i = 0; i < 2; i++) {
+                const rand = Math.floor(Math.random() * 12);
+                if (ary.includes(rand)) {
+                    i--;
+                    continue;
+                }
+                ary.push(rand);
+                console.log(ary);
+                holes[rand].classList.add("Mario");
+            }
+
+
 
             // 時間減一
             timeleft--;
@@ -450,16 +465,16 @@
         }
 
 
-        document.onkeydown = (event) => {
-            const key = event.key;
-            // 如果按鍵式數字，且在遊戲中，數字為1~9
-            if (!isNaN(key) && inGame && key > 0 && key < 10) {
-                // 找到對應的格子
-                const target = document.getElementById(`hole${key}`);
-                // 觸發點擊事件
-                target.click()
-            }
-        }
+        // document.onkeydown = (event) => {
+        //     const key = event.key;
+        //     // 如果按鍵是數字，且在遊戲中，數字為1~9
+        //     if (!isNaN(key) && inGame && key > 0 && key < 10) {
+        //         // 找到對應的格子
+        //         const target = document.getElementById(`hole${key}`);
+        //         // 觸發點擊事件
+        //         target.click()
+        //     }
+        // }
     </script>
 </body>
 
