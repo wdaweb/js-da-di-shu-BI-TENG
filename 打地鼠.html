@@ -269,6 +269,31 @@
                 background-position: center 120px;
             }
         }
+
+        .star2 {
+            background-image: url(./images/star.png);
+            background-repeat: no-repeat;
+            background-position: center 40px;
+            animation: star2 1s linear forwards;
+        }
+
+        @keyframes star2 {
+
+            from {
+                transform: rotateY(0deg);
+                background-position: center 120px;
+            }
+
+            50% {
+                transform: rotateY(360deg);
+                background-position: center 0px;
+            }
+
+            to {
+                transform: rotateY(0deg);
+                background-position: center 120px;
+            }
+        }
     </style>
 </head>
 
@@ -276,11 +301,13 @@
     <table id="menu" border="1px">
         <tr>
             <td style="text-align: center;"><img src="./images/flower.png" width="50px" height="50px"></td>
-            <td style="text-align: center;"><img src="./images/馬力歐.png" width="40px" height="50px"></td>
+            <td style="text-align: center;"><img src="./images/馬力歐.png" width="50px" height="50px"></td>
+            <td style="text-align: center;"><img src="./images/star.png" width="50px" height="50px"></td>
         </tr>
         <tr>
-            <td style="height: 20px; text-align: center;">+1</td>
-            <td style="height: 20px; text-align: center;">-1</td>
+            <td style="height: 20px; text-align: center;">+1分</td>
+            <td style="height: 20px; text-align: center;">-1分</td>
+            <td style="height: 20px; text-align: center;">時間 +5秒</td>
         </tr>
     </table>
 
@@ -299,22 +326,22 @@
 
     <table id="game">
         <tr>
-            <td class="hole" id="hole7"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole8"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole9"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole9"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole7"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole8"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
         </tr>
         <tr>
-            <td class="hole" id="hole4"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole5"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole6"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole9"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole4"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole5"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole6"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
         </tr>
         <tr>
-            <td class="hole" id="hole1"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole2"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole3"><img src="./images/水管.png" id="pipe"></td>
-            <td class="hole" id="hole9"><img src="./images/水管.png" id="pipe"></td>
+            <td class="hole" id="hole1"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole2"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole3"><img src="./images/水管.png" class="pipe"></td>
+            <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
         </tr>
     </table>
 
@@ -391,6 +418,7 @@
                 hole.classList.remove("Mario");
                 hole.classList.remove("angry");
                 hole.classList.remove("star");
+                hole.classList.remove("star2");
             }
 
             // 不重複的隨機抽
@@ -402,7 +430,7 @@
                     continue;
                 }
                 ary.push(rand);
-                // console.log(ary);
+                console.log(ary);
                 // classList 指 class 這元素
                 holes[rand].classList.add("flower");
             }
@@ -414,7 +442,7 @@
                     continue;
                 }
                 ary.push(rand);
-                // console.log(ary);
+                console.log(ary);
                 holes[rand].classList.add("Mario");
             }
 
@@ -445,6 +473,7 @@
                     hole.classList.remove("Mario");
                     hole.classList.remove("angry");
                     hole.classList.remove("star");
+                    hole.classList.remove("star2");
                 }
                 // 啟用開始按鈕
                 btnStart.disabled = false;
@@ -497,7 +526,8 @@
                 }
                 // 加時間
                 else if (inGame && hole.classList.contains("star")) {
-                    hole.classList.add("star")
+                    hole.classList.add("star2")
+                    hole.classList.remove("star");
                     timeleft += 5
                     textTime.innerText = timeleft;
                 }
