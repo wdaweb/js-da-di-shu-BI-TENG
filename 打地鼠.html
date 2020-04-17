@@ -93,7 +93,7 @@
         .hole {
             width: 150px;
             height: 150px;
-
+            position: relative;
             /* 滑鼠樣式、準心 */
             cursor: url(./images/滑鼠.png) 50 50, auto;
         }
@@ -144,9 +144,9 @@
             background-repeat: no-repeat;
         }
 
-        #pipe {
-            position: relative;
-            top: 65px;
+        .pipe {
+            position: absolute;
+            top: 120px;
 
         }
 
@@ -271,7 +271,7 @@
         }
 
         .star2 {
-            background-image: url(./images/star.png);
+            background-image: url(./images/star2.png);
             background-repeat: no-repeat;
             background-position: center 40px;
             animation: star2 1s linear forwards;
@@ -280,18 +280,15 @@
         @keyframes star2 {
 
             from {
-                transform: rotateY(0deg);
-                background-position: center 120px;
+                background-position: center 10px;
             }
 
             50% {
-                transform: rotateY(360deg);
-                background-position: center 0px;
+                background-position: center 120px;
             }
 
             to {
-                transform: rotateY(0deg);
-                background-position: center 120px;
+                background-position: center 10px;
             }
         }
     </style>
