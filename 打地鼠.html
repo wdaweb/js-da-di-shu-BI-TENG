@@ -393,8 +393,9 @@
         btnStart.onclick = () => {
             // 停用開始按鈕
             btnStart.disabled = true
-            // 設定每秒變換一次
+            // 設定每秒變換一次，每一秒會出現 game 這 function
             timer = setInterval(game, 1000)
+            // 因過 1 秒才會出現，這邊是為了要讓他立即出現
             game()
             // 重製分數
             score = 0;
