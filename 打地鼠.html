@@ -300,10 +300,6 @@
                 background-position: center 10px;
             }
         }
-
-        .start2:active {
-            transform: rotateY(90deg);
-        }
     </style>
 </head>
 
@@ -379,6 +375,8 @@
         const textHighScore = document.getElementById("text-highscore");
         const rihai = new Audio();
         rihai.src = "./過關音效.M4A";
+        const rihai2 = new Audio();
+        rihai2.src = "./背景音效.mp3";
 
         // 分數
         let score = 0;
@@ -405,6 +403,7 @@
 
         // 遊戲開始
         btnStart.onclick = () => {
+            rihai2.play();
             // 停用開始按鈕
             btnStart.disabled = true
             // 設定每秒變換一次，每一秒會出現 game 這 function
@@ -474,6 +473,7 @@
 
             // 如果時間到了
             if (timeleft == 0) {
+                rihai2.pause();
                 // 設定狀態為不在遊戲中
                 inGame = false;
                 // 停止計時器
