@@ -8,12 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <style>
         body {
+            background: url(./sky.svg);
+            width: 100vw;
+            height: 100vh;
+            font-family: 微軟正黑體;
+        }
+
+        .main {
             width: 1366px;
             height: 768px;
             border: 1px solid black;
             background-color: skyblue;
-            margin: auto;
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
         }
 
         #bricks {
@@ -291,71 +300,76 @@
                 background-position: center 10px;
             }
         }
+
+        .start2:active {
+            transform: rotateY(90deg);
+        }
     </style>
 </head>
 
 <body>
-    <table id="menu" border="1px">
-        <tr>
-            <td style="text-align: center;"><img src="./images/flower.png" width="50px" height="50px"></td>
-            <td style="text-align: center;"><img src="./images/馬力歐.png" width="50px" height="50px"></td>
-            <td style="text-align: center;"><img src="./images/star.png" width="50px" height="50px"></td>
-        </tr>
-        <tr>
-            <td style="height: 20px; text-align: center;">+1分</td>
-            <td style="height: 20px; text-align: center;">-1分</td>
-            <td style="height: 20px; text-align: center;">時間 +5秒</td>
-        </tr>
-    </table>
+    <div class="main">
+        <table id="menu" border="1px">
+            <tr>
+                <td style="text-align: center;"><img src="./images/flower.png" width="50px" height="50px"></td>
+                <td style="text-align: center;"><img src="./images/馬力歐.png" width="50px" height="50px"></td>
+                <td style="text-align: center;"><img src="./images/star.png" width="50px" height="50px"></td>
+            </tr>
+            <tr>
+                <td style="height: 20px; text-align: center;">+1分</td>
+                <td style="height: 20px; text-align: center;">-1分</td>
+                <td style="height: 20px; text-align: center;">時間 +5秒</td>
+            </tr>
+        </table>
 
-    <table id="time-menu" cellspacing="10px">
-        <tr>
-            <td>
-                <input type="button" id="btn-start">
-            </td>
-        </tr>
-        <tr>
-            <td id="text-time2">
-                <span id="text-time">10</span>
-            </td>
-        </tr>
-    </table>
+        <table id="time-menu" cellspacing="10px">
+            <tr>
+                <td>
+                    <input type="button" id="btn-start">
+                </td>
+            </tr>
+            <tr>
+                <td id="text-time2">
+                    <span id="text-time">10</span>
+                </td>
+            </tr>
+        </table>
 
-    <table id="game">
-        <tr>
-            <td class="hole" id="hole7"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole8"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
-        </tr>
-        <tr>
-            <td class="hole" id="hole4"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole5"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole6"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
-        </tr>
-        <tr>
-            <td class="hole" id="hole1"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole2"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole3"><img src="./images/水管.png" class="pipe"></td>
-            <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
-        </tr>
-    </table>
+        <table id="game">
+            <tr>
+                <td class="hole" id="hole7"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole8"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
+            </tr>
+            <tr>
+                <td class="hole" id="hole4"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole5"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole6"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
+            </tr>
+            <tr>
+                <td class="hole" id="hole1"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole2"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole3"><img src="./images/水管.png" class="pipe"></td>
+                <td class="hole" id="hole9"><img src="./images/水管.png" class="pipe"></td>
+            </tr>
+        </table>
 
-    <div id="list">
-        目前分數：<span id="text-score">0</span><br><br>
-        最高分：<br>
-        玩家：<span id="text-highplayer">沒有人</span> <br>
-        分數：<span id="text-highscore">0</span>
+        <div id="list">
+            目前分數：<span id="text-score">0</span><br><br>
+            最高分：<br>
+            玩家：<span id="text-highplayer">沒有人</span> <br>
+            分數：<span id="text-highscore">0</span>
+        </div>
+
+        <!-- 磚塊 -->
+        <div id="bricks"></div>
+        <!-- 蘑菇 -->
+        <div id="mushroom"></div>
+        <div id="mushroom1"></div>
+        <div id="mushroom2"></div>
     </div>
-
-    <!-- 磚塊 -->
-    <div id="bricks"></div>
-    <!-- 蘑菇 -->
-    <div id="mushroom"></div>
-    <div id="mushroom1"></div>
-    <div id="mushroom2"></div>
-
     <script>
         const holes = document.getElementsByClassName("hole");
         const btnStart = document.getElementById("btn-start");
